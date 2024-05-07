@@ -1,0 +1,531 @@
+blocks:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_loaders/load_supplychain.py
+  downstream_blocks:
+  - transform_staged_data
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: load_supplychain
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_loader
+  upstream_blocks: []
+  uuid: load_supplychain
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_staged_data.py
+  downstream_blocks:
+  - transform_customer_data
+  - transform_order_data
+  - transform_table_category
+  - transform_table_department
+  - transform_table_delivery_status
+  - transform_table_market
+  - transform_table_order_status
+  - transform_table_shipping
+  - transform_table_product
+  - transform_table_shipping_mode
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_staged_data
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - load_supplychain
+  uuid: transform_staged_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_customer_data.py
+  downstream_blocks:
+  - transform_table_customer
+  - transform_table_customer_address
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_customer_data
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_customer_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_order_data.py
+  downstream_blocks:
+  - transform_table_order
+  - transform_table_order_address
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_order_data
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_order_data
+- all_upstream_blocks_executed: true
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_category
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_category
+  uuid: gcs_insert_table_category
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_category.py
+  downstream_blocks:
+  - gcs_insert_table_category
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_category
+  retry_config: null
+  status: executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_category
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_customer.py
+  downstream_blocks:
+  - gcs_insert_table_customer
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_customer
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_customer_data
+  uuid: transform_table_customer
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_customer
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_customer
+  uuid: gcs_insert_table_customer
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_customer_address.py
+  downstream_blocks:
+  - gcs_insert_table_customer_address
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_customer_address
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_customer_data
+  uuid: transform_table_customer_address
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_customer_address
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_customer_address
+  uuid: gcs_insert_table_customer_address
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_delivery_status.py
+  downstream_blocks:
+  - gcs_insert_table_delivery_status
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_delivery_status
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_delivery_status
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_delivery_status
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_delivery_status
+  uuid: gcs_insert_table_delivery_status
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_department.py
+  downstream_blocks:
+  - gcs_insert_table_department
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_department
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_department
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_department
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_department
+  uuid: gcs_insert_table_department
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_market.py
+  downstream_blocks:
+  - gcs_insert_table_market
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_market
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_market
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_market
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_market
+  uuid: gcs_insert_table_market
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_order_status.py
+  downstream_blocks:
+  - gcs_insert_table_order_status
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_order_status
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_order_status
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_order_status
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_order_status
+  uuid: gcs_insert_table_order_status
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_order.py
+  downstream_blocks:
+  - gcs_insert_table_order
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_order
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_order_data
+  uuid: transform_table_order
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_order
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_order
+  uuid: gcs_insert_table_order
+- all_upstream_blocks_executed: false
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_order_address.py
+  downstream_blocks:
+  - gcs_insert_table_order_address
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_order_address
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_order_data
+  uuid: transform_table_order_address
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_order_address
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_order_address
+  uuid: gcs_insert_table_order_address
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_product.py
+  downstream_blocks:
+  - gcs_insert_table_product
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_product
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_product
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_product
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_product
+  uuid: gcs_insert_table_product
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_shipping.py
+  downstream_blocks:
+  - gcs_insert_table_shipping
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_shipping
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_shipping
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_shipping
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_shipping
+  uuid: gcs_insert_table_shipping
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: transformers/transform_table_shipping_mode.py
+  downstream_blocks:
+  - gcs_insert_table_shipping_mode
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: transform_table_shipping_mode
+  retry_config: null
+  status: not_executed
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - transform_staged_data
+  uuid: transform_table_shipping_mode
+- all_upstream_blocks_executed: false
+  color: null
+  configuration: {}
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: gcs_insert_table_shipping_mode
+  retry_config: null
+  status: updated
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - transform_table_shipping_mode
+  uuid: gcs_insert_table_shipping_mode
+cache_block_output_in_memory: false
+callbacks: []
+concurrency_config: {}
+conditionals: []
+created_at: '2024-05-07 11:32:33.774496+00:00'
+data_integration: null
+description: "create tables and insert data to \nGoogle Cloud BigQuery "
+executor_config: {}
+executor_count: 1
+executor_type: null
+extensions: {}
+name: to_gcp_bigquery
+notification_config: {}
+remote_variables_dir: null
+retry_config: {}
+run_pipeline_in_one_process: false
+settings:
+  triggers: null
+spark_config: {}
+tags: []
+type: python
+uuid: to_gcp_bigquery
+variables_dir: /home/src/mage_data/datacosupplychain
+widgets: []
